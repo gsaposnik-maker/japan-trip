@@ -186,7 +186,9 @@
 
   <div class="notes" style="margin-top:6px;">
     <h3>General notes & questions</h3>
-    <textarea id="generalNotes" placeholder="Anything not tied to one day — packing list, budget, flight numbers, open questions for each other…"></textarea>
+    <div class="notes-view" id="generalNotesView" tabindex="0" style="white-space:pre-wrap;font-size:.88rem;line-height:1.5;cursor:text;min-height:56px;"></div>
+    <textarea id="generalNotes" style="display:none;" placeholder="Anything not tied to one day — packing list, budget, flight numbers, open questions for each other…"></textarea>
+    <p class="hint">Tap the text to edit. Links become clickable automatically when you click away.</p>
   </div>
 
 </div>
@@ -293,6 +295,19 @@ ensureIds(data);
 
 function escapeAttr(s){
   return (s || "").replace(/&/g,"&amp;").replace(/"/g,"&quot;");
+}
+
+function escapeHtml(s){
+  return (s || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
+}
+
+function linkify(text){
+  const escaped = escapeHtml(text);
+  const urlPattern = /(https?:\/\/[^\s<]+)/g;
+  return escaped.replace(urlPattern, url => `<a href="${url}" target="_blank" rel="noopener" style="color:var(--accent);">${url}</a>`).replace(/\n/g, "<br>");
 }
 
 // ---------- attachments (photos / PDFs) — kept in memory only ----------
@@ -544,9 +559,29 @@ function render(){
   tabsEl.appendChild(addTab);
 }
 
-document.getElementById("generalNotes").value = generalNotes;
-document.getElementById("generalNotes").addEventListener("input", e => { generalNotes = e.target.value; });
+const generalNotesView = document.getElementById("generalNotesView");
+const generalNotesInput = document.getElementById("generalNotes");
 
+function renderGeneralNotesView(){
+  generalNotesView.innerHTML = linkify(generalNotes) || `<span style="color:var(--sub);">Tap to add notes…</span>`;
+}
+
+generalNotesView.addEventListener("click", () => {
+  generalNotesInput.value = generalNotes;
+  generalNotesView.style.display = "none";
+  generalNotesInput.style.display = "block";
+  generalNotesInput.focus();
+});
+
+generalNotesInput.addEventListener("input", e => { generalNotes = e.target.value; });
+
+generalNotesInput.addEventListener("blur", () => {
+  generalNotesInput.style.display = "none";
+  generalNotesView.style.display = "block";
+  renderGeneralNotesView();
+});
+
+renderGeneralNotesView();
 render();
 </script>
 </body>
