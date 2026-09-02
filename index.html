@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Tipping Glass — biological versus chronological age</title>
+<meta name="description" content="Animated cover figure: comprehensive intervention slows the trajectory of cardiovascular disease while chronological age is unchanged.">
+<meta property="og:title" content="The Tipping Glass — biological versus chronological age">
+<meta property="og:type" content="video.other">
+<meta property="og:image" content="poster.jpg">
+<style>
+  :root{
+    --ink:#2C2C2A; --muted:#5F5E5A; --faint:#8C8B86;
+    --coral:#D85A30; --teal:#1D9E75; --rule:#E4E1D8; --bg:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.65; padding:28px 20px 64px;
+  }
+  main{max-width:660px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  h1{font-size:25px;font-weight:600;line-height:1.28;letter-spacing:-.01em}
+  .byline{font-size:14px;color:var(--muted);margin-top:8px}
+  figure{margin:26px 0 0}
+  video,img.fallback{width:100%;height:auto;display:block;border-radius:10px;background:#faf9f6}
+  .cap{font-size:13px;color:var(--faint);margin-top:9px}
+  .legend{font-size:16px;margin-top:26px}
+  .legend b{font-weight:600}
+  .swatch{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:5px}
+  .keys{margin-top:22px;border-top:1px solid var(--rule);padding-top:18px}
+  .keys div{font-size:14.5px;color:var(--muted);margin-bottom:9px;padding-left:16px;text-indent:-16px}
+  .note{font-size:13px;color:var(--faint);margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
+  .files{margin-top:24px;display:flex;flex-wrap:wrap;gap:9px}
+  .files a{
+    font-size:13.5px;text-decoration:none;color:var(--ink);
+    border:1px solid var(--rule);border-radius:7px;padding:8px 13px;
+  }
+  .files a:hover{background:#faf9f6}
+  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--faint)}
+  footer a{color:var(--muted)}
+  @media (prefers-color-scheme:dark){
+    :root{--ink:#EDEBE4;--muted:#B4B2A9;--faint:#8C8B86;--rule:#3A3A37;--bg:#191918}
+    video,img.fallback{background:#232322}
+    .files a:hover{background:#232322}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <p class="kicker">Cover figure &middot; animated</p>
+  <h1>ARTICLE_TITLE_HERE</h1>
+  <p class="byline">AUTHOR_NAMES_HERE &middot; JOURNAL_CITATION_HERE</p>
+
+  <figure>
+    <video id="v" poster="poster.jpg" autoplay muted loop playsinline controls
+           preload="metadata" aria-label="Animation of a tipping hourglass showing biological age falling while chronological age stays fixed">
+      <source src="Tipping_Glass_animation.mp4" type="video/mp4">
+      <img class="fallback" src="Tipping_Glass_animation.gif"
+           alt="An hourglass tips over; biological age falls from 74 to 67 while chronological age remains 68.">
+    </video>
+    <p class="cap">Tap or click to replay. Sound is not used.</p>
+  </figure>
+
+  <p class="legend">
+    Both glasses hold the same 68&#8209;year&#8209;old. At left, no intervention: the sand pours at full flow
+    and the epigenome reads <b>74</b> &mdash; six years of age acceleration. At right, comprehensive
+    intervention has tipped the glass. The sand runs slower and biological age reads <b>67</b>.
+    The birth date cannot be changed; the trajectory of cardiovascular disease can be slowed &mdash;
+    and the epigenetic clock is where that slowing becomes measurable.
+  </p>
+
+  <div class="keys">
+    <div><span class="swatch" style="background:var(--coral)"></span>The coral hand of the argument &mdash; chronological age &mdash; never moves off 68.</div>
+    <div><span class="swatch" style="background:var(--teal)"></span>Methylation marks on the outer strand open as each intervention is applied.</div>
+    <div><span class="swatch" style="background:#BA7517"></span>Sand re&#8209;levels under gravity as the glass tips; the stream at the neck thins to a trickle.</div>
+    <div><span class="swatch" style="background:var(--faint)"></span>The tip stops short of inversion. Flow slows &mdash; it never stops, and elapsed time is not recovered.</div>
+  </div>
+
+  <p class="note">
+    *Comprehensive intervention: Mediterranean diet, regular physical activity, improved sleep quality,
+    social participation, and risk&#8209;factor pharmacotherapy. Values shown are illustrative and are
+    described in full in the article.
+  </p>
+
+  <div class="files">
+    <a href="Tipping_Glass_animation.mp4" download>Download MP4</a>
+    <a href="Tipping_Glass_animation.gif" download>Download GIF</a>
+    <a href="cover.tif" download>Download cover (600&nbsp;dpi TIFF)</a>
+  </div>
+
+  <footer>
+    Archival copy and citation: <a href="DOI_URL_HERE">DOI_TEXT_HERE</a><br>
+    Figure by AUTHOR_NAMES_HERE. Reuse under CC&nbsp;BY&nbsp;4.0.
+  </footer>
+
+</main>
+</body>
+</html>
