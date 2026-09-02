@@ -1,102 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Tipping Glass — biological versus chronological age</title>
-<meta name="description" content="Animated cover figure: comprehensive intervention slows the trajectory of cardiovascular disease while chronological age is unchanged.">
-<meta property="og:title" content="The Tipping Glass — biological versus chronological age">
-<meta property="og:type" content="video.other">
-<meta property="og:image" content="poster.jpg">
+<meta charset="UTF-8">
+<title>Japan Trip — Oct 14–24</title>
 <style>
   :root{
-    --ink:#2C2C2A; --muted:#5F5E5A; --faint:#8C8B86;
-    --coral:#D85A30; --teal:#1D9E75; --rule:#E4E1D8; --bg:#FFFFFF;
+    --ink:#1f2430;
+    --sub:#6b7280;
+    --paper:#fffaf3;
+    --card:#ffffff;
+    --line:#e8e2d6;
+    --accent:#b5493a;
+    --accent-soft:#f4ded9;
+    --osaka:#c96a3c;
+    --kyoto:#5f7a5f;
+    --tokyo:#3f5c8a;
+    --extra:#8a6bb0;
+    --nara:#a8762c;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
+  *{box-sizing:border-box;}
   body{
-    background:var(--bg); color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
-    line-height:1.65; padding:28px 20px 64px;
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--paper); color:var(--ink);
   }
-  main{max-width:660px;margin:0 auto}
-  .kicker{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
-  h1{font-size:25px;font-weight:600;line-height:1.28;letter-spacing:-.01em}
-  .byline{font-size:14px;color:var(--muted);margin-top:8px}
-  figure{margin:26px 0 0}
-  video,img.fallback{width:100%;height:auto;display:block;border-radius:10px;background:#faf9f6}
-  .cap{font-size:13px;color:var(--faint);margin-top:9px}
-  .legend{font-size:16px;margin-top:26px}
-  .legend b{font-weight:600}
-  .swatch{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:5px}
-  .keys{margin-top:22px;border-top:1px solid var(--rule);padding-top:18px}
-  .keys div{font-size:14.5px;color:var(--muted);margin-bottom:9px;padding-left:16px;text-indent:-16px}
-  .note{font-size:13px;color:var(--faint);margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
-  .files{margin-top:24px;display:flex;flex-wrap:wrap;gap:9px}
-  .files a{
-    font-size:13.5px;text-decoration:none;color:var(--ink);
-    border:1px solid var(--rule);border-radius:7px;padding:8px 13px;
+  .wrap{max-width:820px;margin:0 auto;padding:20px 16px 60px;}
+  header{text-align:center;margin-bottom:18px;}
+  header h1{font-size:1.6rem;margin:0 0 4px;letter-spacing:.2px;}
+  header p{color:var(--sub);margin:0;font-size:.92rem;}
+  .savebar{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    font-size:.78rem;color:var(--sub);margin-top:10px;
   }
-  .files a:hover{background:#faf9f6}
-  footer{margin-top:34px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--faint)}
-  footer a{color:var(--muted)}
-  @media (prefers-color-scheme:dark){
-    :root{--ink:#EDEBE4;--muted:#B4B2A9;--faint:#8C8B86;--rule:#3A3A37;--bg:#191918}
-    video,img.fallback{background:#232322}
-    .files a:hover{background:#232322}
+  .dot{width:7px;height:7px;border-radius:50%;background:#9ca3af;}
+  .dot.ok{background:#4a9d5f;}
+  .dot.busy{background:#d9a441;}
+
+  .tabs{
+    display:flex;overflow-x:auto;gap:6px;padding:4px;margin:18px 0 14px;
+    -webkit-overflow-scrolling:touch;
   }
+  .tab{
+    flex:0 0 auto;padding:8px 12px;border-radius:10px;border:1px solid var(--line);
+    background:var(--card);cursor:pointer;font-size:.82rem;white-space:nowrap;
+    display:flex;flex-direction:column;align-items:center;gap:2px;
+    transition:transform .1s ease;
+  }
+  .tab .d{font-weight:600;}
+  .tab .c{font-size:.68rem;color:var(--sub);}
+  .tab.active{border-color:transparent;color:#fff;}
+  .tab.active.osaka{background:var(--osaka);}
+  .tab.active.kyoto{background:var(--kyoto);}
+  .tab.active.tokyo{background:var(--tokyo);}
+  .tab.active.extra{background:var(--extra);}
+  .tab.active.nara{background:var(--nara);}
+  .tab:active{transform:scale(.97);}
+  .tab.add-tab{
+    border-style:dashed;color:var(--sub);font-weight:600;
+  }
+  .tab.add-tab:hover{border-color:var(--accent);color:var(--accent);}
+
+  .city-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+  .city-select{
+    font-size:.7rem;border:1px solid var(--line);border-radius:999px;padding:2px 8px;
+    background:var(--card);color:var(--sub);
+  }
+  .remove-day{
+    margin-left:auto;border:none;background:none;color:var(--sub);font-size:.75rem;
+    text-decoration:underline;cursor:pointer;
+  }
+  .remove-day:hover{color:var(--accent);}
+
+  .day{display:none;}
+  .day.active{display:block;}
+  .day-head{margin-bottom:10px;}
+  .day-head h2{margin:0 0 2px;font-size:1.15rem;}
+  .day-head .sub{color:var(--sub);font-size:.85rem;border:none;background:transparent;font-family:inherit;padding:0;width:100%;}
+  .day-head .sub:focus{outline:none;background:#fbf6ec;border-radius:6px;}
+
+  .item{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:12px 12px 10px;margin-bottom:10px;position:relative;
+  }
+  .item .row1{display:flex;gap:10px;align-items:flex-start;}
+  .time{
+    flex:0 0 64px;font-weight:600;font-size:.82rem;color:var(--accent);
+    border:none;background:transparent;padding-top:2px;width:64px;
+  }
+  .title{
+    flex:1;font-weight:600;font-size:.98rem;border:none;background:transparent;
+    padding:2px 0;width:100%;
+  }
+  .desc{
+    width:100%;border:none;background:transparent;color:var(--sub);font-size:.86rem;
+    margin-top:4px;resize:none;line-height:1.4;font-family:inherit;
+  }
+  .time:focus,.title:focus,.desc:focus{outline:none;background:#fbf6ec;border-radius:6px;}
+  .del{
+    position:absolute;top:8px;right:8px;border:none;background:none;color:#c8c2b4;
+    cursor:pointer;font-size:1rem;line-height:1;padding:2px 6px;
+  }
+  .del:hover{color:var(--accent);}
+  .photo-link{
+    display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+    font-size:.78rem;color:var(--accent);text-decoration:none;border:1px solid var(--accent-soft);
+    background:#fbf1ee;padding:4px 9px;border-radius:999px;
+  }
+  .photo-link:hover{background:var(--accent-soft);}
+
+  .add-btn{
+    width:100%;padding:10px;border:1.5px dashed var(--line);border-radius:12px;
+    background:transparent;color:var(--sub);font-size:.86rem;cursor:pointer;margin-bottom:16px;
+  }
+  .add-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .top-attractions{
+    background:#fbf6ec;border:1px dashed var(--line);border-radius:12px;
+    padding:12px;margin-bottom:16px;
+  }
+  .top-attractions h3{margin:0 0 8px;font-size:.85rem;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;}
+  .top-attractions ol{margin:0;padding-left:20px;}
+  .top-attractions li{font-size:.88rem;margin-bottom:4px;}
+  .top-attractions li a{color:var(--accent);text-decoration:none;}
+  .top-attractions li a:hover{text-decoration:underline;}
+
+  .notes{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;
+    margin-bottom:16px;
+  }
+  .notes h3{margin:0 0 6px;font-size:.85rem;color:var(--sub);text-transform:uppercase;letter-spacing:.4px;}
+  .notes textarea{
+    width:100%;min-height:56px;border:none;background:transparent;font-family:inherit;
+    font-size:.88rem;resize:vertical;
+  }
+  .notes textarea:focus{outline:none;}
+  .notes p.hint{margin:8px 0 0;font-size:.75rem;color:var(--sub);}
+
+  .attach-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+  .attach-chip{position:relative;}
+  .attach-image img{
+    width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block;
+    background:#f1ece1;
+  }
+  .attach-file a{
+    display:flex;align-items:center;height:72px;padding:0 12px;border-radius:8px;
+    border:1px solid var(--line);background:#fbf6ec;font-size:.78rem;color:var(--ink);
+    text-decoration:none;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .attach-del{
+    position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;
+    border:none;background:var(--ink);color:#fff;font-size:.65rem;line-height:1;cursor:pointer;
+  }
+  .attach-actions{display:flex;gap:8px;flex-wrap:wrap;}
+  .attach-btn{
+    font-size:.78rem;padding:6px 11px;border-radius:999px;border:1px solid var(--accent-soft);
+    background:#fbf1ee;color:var(--accent);cursor:pointer;
+  }
+  .attach-btn:hover{background:var(--accent-soft);}
+
+  .overview{
+    display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;justify-content:center;
+  }
+  .ov{
+    flex:1;min-width:110px;text-align:center;padding:10px 6px;border-radius:12px;color:#fff;font-size:.78rem;
+  }
+  .ov .n{font-size:1.3rem;font-weight:700;display:block;}
+  .ov.osaka{background:var(--osaka);}
+  .ov.kyoto{background:var(--kyoto);}
+  .ov.tokyo{background:var(--tokyo);}
+  .ov.extra{background:var(--extra);}
+  .ov.nara{background:var(--nara);}
 </style>
 </head>
 <body>
-<main>
+<div class="wrap">
+  <header>
+    <h1>🇯🇵 Osaka → Kyoto → Tokyo</h1>
+    <p>Oct 14 – Oct 24 · tap any line to edit</p>
+    <div class="savebar"><span class="dot ok" id="saveDot"></span><span id="saveText">viewable by anyone with this link — edits are local to your browser only</span></div>
+  </header>
 
-  <p class="kicker">Cover figure &middot; animated</p>
-  <h1>ARTICLE_TITLE_HERE</h1>
-  <p class="byline">AUTHOR_NAMES_HERE &middot; JOURNAL_CITATION_HERE</p>
+  <div class="overview" id="overview"></div>
 
-  <figure>
-    <video id="v" poster="poster.jpg" autoplay muted loop playsinline controls
-           preload="metadata" aria-label="Animation of a tipping hourglass showing biological age falling while chronological age stays fixed">
-      <source src="Tipping_Glass_animation.mp4" type="video/mp4">
-      <img class="fallback" src="Tipping_Glass_animation.gif"
-           alt="An hourglass tips over; biological age falls from 74 to 67 while chronological age remains 68.">
-    </video>
-    <p class="cap">Tap or click to replay. Sound is not used.</p>
-  </figure>
+  <div class="tabs" id="tabs"></div>
+  <div id="days"></div>
 
-  <p class="legend">
-    Both glasses hold the same 68&#8209;year&#8209;old. At left, no intervention: the sand pours at full flow
-    and the epigenome reads <b>74</b> &mdash; six years of age acceleration. At right, comprehensive
-    intervention has tipped the glass. The sand runs slower and biological age reads <b>67</b>.
-    The birth date cannot be changed; the trajectory of cardiovascular disease can be slowed &mdash;
-    and the epigenetic clock is where that slowing becomes measurable.
-  </p>
-
-  <div class="keys">
-    <div><span class="swatch" style="background:var(--coral)"></span>The coral hand of the argument &mdash; chronological age &mdash; never moves off 68.</div>
-    <div><span class="swatch" style="background:var(--teal)"></span>Methylation marks on the outer strand open as each intervention is applied.</div>
-    <div><span class="swatch" style="background:#BA7517"></span>Sand re&#8209;levels under gravity as the glass tips; the stream at the neck thins to a trickle.</div>
-    <div><span class="swatch" style="background:var(--faint)"></span>The tip stops short of inversion. Flow slows &mdash; it never stops, and elapsed time is not recovered.</div>
+  <div class="notes" style="margin-top:6px;">
+    <h3>General notes & questions</h3>
+    <textarea id="generalNotes" placeholder="Anything not tied to one day — packing list, budget, flight numbers, open questions for each other…"></textarea>
   </div>
 
-  <p class="note">
-    *Comprehensive intervention: Mediterranean diet, regular physical activity, improved sleep quality,
-    social participation, and risk&#8209;factor pharmacotherapy. Values shown are illustrative and are
-    described in full in the article.
-  </p>
+</div>
 
-  <div class="files">
-    <a href="Tipping_Glass_animation.mp4" download>Download MP4</a>
-    <a href="Tipping_Glass_animation.gif" download>Download GIF</a>
-    <a href="cover.tif" download>Download cover (600&nbsp;dpi TIFF)</a>
-  </div>
+<script>
+const CITIES = ["osaka","kyoto","nara","tokyo","extra"];
+const MAX_PDF_BYTES = 4.5 * 1024 * 1024;
 
-  <footer>
-    Archival copy and citation: <a href="DOI_URL_HERE">DOI_TEXT_HERE</a><br>
-    Figure by AUTHOR_NAMES_HERE. Reuse under CC&nbsp;BY&nbsp;4.0.
-  </footer>
+const TOP_ATTRACTIONS = {
+  osaka: ["Osaka Castle", "Dotonbori", "Kuromon Ichiba Market"],
+  kyoto: ["Fushimi Inari Shrine", "Kinkaku-ji (Golden Pavilion)", "Kiyomizu-dera Temple"],
+  nara: ["Nara Park & the deer", "Todai-ji Temple", "Kasuga Taisha Shrine"],
+  tokyo: ["Senso-ji Temple, Asakusa", "Shibuya Crossing", "Meiji Shrine"]
+};
 
-</main>
+const CITY_GUIDES = {
+  osaka: "https://www.japan-guide.com/e/e2157.html",
+  kyoto: "https://www.japan-guide.com/e/e2158.html",
+  nara: "https://www.japan-guide.com/e/e2165.html",
+  tokyo: "https://www.japan-guide.com/e/e2164.html"
+};
+
+const DEFAULT_GENERAL_NOTES =
+  "City guides (japan-guide.com):\n" +
+  "OSAKA " + CITY_GUIDES.osaka + "\n" +
+  "KYOTO " + CITY_GUIDES.kyoto + "\n" +
+  "NARA " + CITY_GUIDES.nara + "\n" +
+  "TOKYO " + CITY_GUIDES.tokyo;
+
+
+const seedData = [
+  { date:"Wed, Oct 14", city:"osaka", title:"Arrival Day", notes:"🏨 Hotel Hankyu International (ホテル阪急インターナショナル) — check-in today (after 3:00pm), check-out Oct 18 (before noon). 19-19 Chayamachi, Kita-ku, Osaka 530-0013. Superior Twin Non-Smoking, breakfast included. Booking ID 1049106642 (Agoda). Tel +81 66-377-2100. [Replaces the earlier Osaka Marriott Miyako Hotel booking, which was cancelled.]", items:[
+    {time:"Afternoon", title:"Land at Kansai Airport (KIX)", desc:"Clear immigration, grab a Suica/ICOCA card, take the limited express or Haruka to Osaka."},
+    {time:"Evening", title:"Check in, then Dotonbori", desc:"Walk the canal, Glico sign photo, dinner — takoyaki, okonomiyaki, or kushikatsu."}
+  ]},
+  { date:"Thu, Oct 15", city:"osaka", title:"Osaka Castle & Kuromon", items:[
+    {time:"Morning", title:"Osaka Castle", desc:"Castle grounds + museum inside; nice park for a stroll."},
+    {time:"Midday", title:"Kuromon Ichiba Market", desc:"Street-food lunch — wagyu skewers, uni, fresh oysters."},
+    {time:"Afternoon", title:"Shinsaibashi & Amerikamura", desc:"Shopping streets, casual browsing, coffee break."}
+  ]},
+  { date:"Fri, Oct 16", city:"osaka", title:"Day trip: Nara", items:[
+    {time:"Morning", title:"Train to Nara (~45 min)", desc:"From Osaka via JR or Kintetsu line."},
+    {time:"Midday", title:"Nara Park & deer", desc:"Feed the deer, walk toward Todai-ji."},
+    {time:"Afternoon", title:"Todai-ji Temple", desc:"Great Buddha Hall — one of the largest wooden buildings in the world."}
+  ]},
+  { date:"Sat, Oct 17", city:"osaka", title:"Free day / Osaka highlights", items:[
+    {time:"Morning", title:"Umeda Sky Building", desc:"Floating garden observatory — great skyline views."},
+    {time:"Afternoon", title:"Open — Universal Studios Japan?", desc:"Optional full day at USJ if you want a theme-park day instead."},
+    {time:"Evening", title:"Farewell Osaka dinner", desc:"Pick a spot in Dotonbori or Namba you didn't try yet."}
+  ]},
+  { date:"Sun, Oct 18", city:"kyoto", title:"Transfer to Kyoto + Fushimi Inari", notes:"🏨 Check out of Hotel Hankyu International (Osaka) this morning. Check into Hotel Okura Kyoto (ホテルオークラ京都) today, check-out Oct 21. Kawara-machi-dori, Nijo-minami-iru, Ichinofunairi-cho 537-4, Nakagyo-ku, Kyoto 604-0924. Standard Twin Room, breakfast included. Booking ID 1039721110 (Agoda). Tel +81 75-211-5111.", items:[
+    {time:"Morning", title:"Osaka → Kyoto by train", desc:"~15 min by Shinkansen or ~30 min by regular JR line."},
+    {time:"Afternoon", title:"Check in, explore neighborhood", desc:"Settle in, easy walk around your area."},
+    {time:"Evening", title:"Fushimi Inari Shrine", desc:"Torii gate trail — go around sunset, far fewer crowds."}
+  ]},
+  { date:"Mon, Oct 19", city:"kyoto", title:"Arashiyama", items:[
+    {time:"Morning", title:"Bamboo Grove", desc:"Go early (before 8am) to beat the tour groups."},
+    {time:"Midday", title:"Tenryu-ji Temple", desc:"Zen garden, UNESCO site, right by the grove."},
+    {time:"Afternoon", title:"Kinkaku-ji (Golden Pavilion)", desc:"Iconic gold-leaf temple reflecting on its pond."}
+  ]},
+  { date:"Tue, Oct 20", city:"kyoto", title:"Higashiyama District", items:[
+    {time:"Morning", title:"Kiyomizu-dera Temple", desc:"Wooden stage with sweeping city views."},
+    {time:"Midday", title:"Sannenzaka & Ninenzaka streets", desc:"Preserved lanes, tea shops, souvenirs."},
+    {time:"Evening", title:"Gion district", desc:"Wander for a chance to spot a geiko/maiko; dinner nearby."}
+  ]},
+  { date:"Wed, Oct 21", city:"nara", title:"Nijo Castle & Philosopher's Path", notes:"🏨 Check out of Hotel Okura Kyoto this morning. Overnight stop tonight at 四季亭 Shikitei in Nara (1 night, check-out Oct 22) — Standard Family Room, breakfast included. Confirmation 6385279230, PIN 0616 (Booking.com). Nara, 高畑町1163. Tel +81 742-22-5531. NOTE: this means getting from Kyoto to Nara this evening — worth double-checking against today's Nijo Castle / Philosopher's Path plan below.", items:[
+    {time:"Morning", title:"Nijo Castle", desc:"Famous 'nightingale floors' and gardens."},
+    {time:"Afternoon", title:"Philosopher's Path", desc:"Canal-side walk connecting several temples."},
+    {time:"Evening", title:"Optional: tea ceremony experience", desc:"Book ahead if you want to try one."}
+  ]},
+  { date:"Thu, Oct 22", city:"tokyo", title:"Transfer to Tokyo", notes:"🏨 Check out of Shikitei Nara this morning. Check into Millennium Mitsui Garden Hotel Tokyo/Ginza today, check-out Oct 24. 5-11-1 Ginza, Chuo-ku, Tokyo 104-0061. Standard Room, 1 Queen Bed, non-smoking. Itinerary #73533605526020 (Expedia For TD). Tel +81 3-3549-3331.", items:[
+    {time:"Morning", title:"Kyoto → Tokyo Shinkansen", desc:"~2h15m on the bullet train — book reserved seats ahead if possible."},
+    {time:"Afternoon", title:"Check in, Shibuya", desc:"Shibuya Crossing, Hachiko statue, casual explore."},
+    {time:"Evening", title:"Shinjuku at night", desc:"Omoide Yokocho for yakitori, neon streets, Golden Gai."}
+  ]},
+  { date:"Fri, Oct 23", city:"tokyo", title:"Asakusa & Akihabara", items:[
+    {time:"Morning", title:"Senso-ji Temple, Asakusa", desc:"Tokyo's oldest temple, Nakamise shopping street."},
+    {time:"Midday", title:"Tokyo Skytree or teamLab", desc:"Pick one — views from Skytree, or immersive art at teamLab."},
+    {time:"Evening", title:"Akihabara", desc:"Electronics, anime/manga culture, arcades."}
+  ]},
+  { date:"Sat, Oct 24", city:"tokyo", title:"Departure Day", notes:"🏨 Check out of Millennium Mitsui Garden Hotel Tokyo/Ginza (noon checkout) before heading to the airport.\n\n✈️ Flight AC10 — Tokyo Narita (NRT) → Toronto Pearson (YYZ). Departs 17:50, arrives 16:35 (same-day local). Duration 11h45m, Boeing 787-9, Business (Z). Booking reference C7UB62.", items:[
+    {time:"Morning", title:"Tsukiji Outer Market", desc:"Breakfast — fresh sushi, tamagoyaki, street snacks."},
+    {time:"Midday", title:"Last-minute shopping", desc:"Depending on flight time — Ginza or airport shopping."},
+    {time:"Afternoon", title:"Depart Haneda/Narita", desc:"Confirm airport and leave good buffer time for check-in."}
+  ]}
+];
+
+let data = JSON.parse(JSON.stringify(seedData));
+let generalNotes = DEFAULT_GENERAL_NOTES;
+let activeDay = 0;
+
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+function ensureIds(days){
+  days.forEach(d => {
+    d.items.forEach(it => { if(!it.id) it.id = uid(); });
+    if(typeof d.notes !== "string") d.notes = "";
+    if(!Array.isArray(d.attachments)) d.attachments = [];
+    if(!CITIES.includes(d.city)) d.city = "extra";
+  });
+  return days;
+}
+ensureIds(data);
+
+function escapeAttr(s){
+  return (s || "").replace(/&/g,"&amp;").replace(/"/g,"&quot;");
+}
+
+// ---------- attachments (photos / PDFs) — kept in memory only ----------
+
+function compressImage(file, maxDim, quality){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        if(w > maxDim || h > maxDim){
+          if(w > h){ h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        const canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = () => reject(new Error("Could not read image"));
+      img.src = reader.result;
+    };
+    reader.onerror = () => reject(new Error("Could not read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+function readAsDataURL(file){
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error("Could not read file"));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleAddPhotos(dayIndex, files){
+  for(const file of files){
+    try{
+      const dataUrl = await compressImage(file, 1200, 0.72);
+      const id = uid();
+      data[dayIndex].attachments.push({ id, type: "image", name: file.name, url: dataUrl });
+    }catch(e){
+      alert("Couldn't add photo: " + file.name);
+    }
+  }
+  render();
+}
+
+async function handleAddPdf(dayIndex, file){
+  try{
+    const dataUrl = await readAsDataURL(file);
+    const approxBytes = dataUrl.length * 0.75;
+    if(approxBytes > MAX_PDF_BYTES){
+      alert("That PDF is too large to display here (roughly 4MB limit). A photo of the page usually works better.");
+      return;
+    }
+    const id = uid();
+    data[dayIndex].attachments.push({ id, type: "pdf", name: file.name, url: dataUrl });
+    render();
+  }catch(e){
+    alert("Couldn't add that PDF.");
+  }
+}
+
+function removeAttachment(dayIndex, attId){
+  data[dayIndex].attachments = data[dayIndex].attachments.filter(a => a.id !== attId);
+  render();
+}
+
+function renderAttachments(day, dayIndex, gridEl){
+  gridEl.innerHTML = "";
+  day.attachments.forEach(att => {
+    const chip = document.createElement("div");
+    chip.className = "attach-chip " + (att.type === "image" ? "attach-image" : "attach-file");
+
+    if(att.type === "image"){
+      const link = document.createElement("a");
+      link.target = "_blank"; link.rel = "noopener";
+      link.href = att.url;
+      const img = document.createElement("img");
+      img.alt = att.name || "photo";
+      img.src = att.url;
+      link.appendChild(img);
+      chip.appendChild(link);
+    } else {
+      const link = document.createElement("a");
+      link.target = "_blank"; link.rel = "noopener";
+      link.href = att.url;
+      link.textContent = "📄 " + (att.name || "document.pdf");
+      chip.appendChild(link);
+    }
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "attach-del";
+    delBtn.textContent = "✕";
+    delBtn.title = "Remove";
+    delBtn.onclick = () => removeAttachment(dayIndex, att.id);
+    chip.appendChild(delBtn);
+
+    gridEl.appendChild(chip);
+  });
+}
+
+// ---------- main render ----------
+
+function renderOverview(){
+  const ovEl = document.getElementById("overview");
+  ovEl.innerHTML = "";
+  const counts = {};
+  data.forEach(d => { counts[d.city] = (counts[d.city]||0) + 1; });
+  CITIES.forEach(city => {
+    if(!counts[city]) return;
+    const ov = document.createElement("div");
+    ov.className = "ov " + city;
+    ov.innerHTML = `<span class="n">${counts[city]}</span>days · ${city[0].toUpperCase()+city.slice(1)}`;
+    ovEl.appendChild(ov);
+  });
+}
+
+function render(){
+  renderOverview();
+  const tabsEl = document.getElementById("tabs");
+  const daysEl = document.getElementById("days");
+  tabsEl.innerHTML = "";
+  daysEl.innerHTML = "";
+
+  data.forEach((day, i) => {
+    const tab = document.createElement("div");
+    tab.className = "tab " + day.city + (i === activeDay ? " active" : "");
+    const shortDate = day.date.includes(",") ? day.date.split(",")[1].trim() : day.date;
+    tab.innerHTML = `<span class="d">${shortDate || ("Day " + (i+1))}</span><span class="c">${day.city[0].toUpperCase()+day.city.slice(1)}</span>`;
+    tab.onclick = () => { activeDay = i; render(); };
+    tabsEl.appendChild(tab);
+
+    const dayEl = document.createElement("div");
+    dayEl.className = "day" + (i === activeDay ? " active" : "");
+
+    const head = document.createElement("div");
+    head.className = "day-head";
+    const citySelect = CITIES.map(c => `<option value="${c}" ${c===day.city?"selected":""}>${c[0].toUpperCase()+c.slice(1)}</option>`).join("");
+    head.innerHTML = `
+      <div class="city-row">
+        <select class="city-select" data-day="${i}">${citySelect}</select>
+        <button class="remove-day" data-day="${i}">Remove this day</button>
+      </div>
+      <h2 contenteditable="true" data-day="${i}" data-field="title">${day.title}</h2>
+      <input class="sub" value="${escapeAttr(day.date)}" placeholder="Date, e.g. Sun, Oct 25">
+    `;
+    head.querySelector("h2").addEventListener("input", e => { data[i].title = e.target.innerText; });
+    head.querySelector(".sub").addEventListener("input", e => { data[i].date = e.target.value; });
+    head.querySelector(".city-select").addEventListener("change", e => { data[i].city = e.target.value; render(); });
+    head.querySelector(".remove-day").addEventListener("click", () => {
+      if(!confirm(`Remove "${day.title || day.date}"? This can't be undone.`)) return;
+      data.splice(i, 1);
+      if(activeDay >= data.length) activeDay = Math.max(0, data.length - 1);
+      render();
+    });
+    dayEl.appendChild(head);
+
+    day.items.forEach((item, j) => {
+      const card = document.createElement("div");
+      card.className = "item";
+      card.innerHTML = `
+        <button class="del" title="Remove">✕</button>
+        <div class="row1">
+          <input class="time" value="${escapeAttr(item.time)}" placeholder="Time">
+          <input class="title" value="${escapeAttr(item.title)}" placeholder="Activity">
+        </div>
+        <textarea class="desc" rows="2" placeholder="Notes">${item.desc || ""}</textarea>
+        <a class="photo-link" target="_blank" rel="noopener" href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(item.title)}">🔍 Search photos online</a>
+      `;
+      card.querySelector(".time").addEventListener("input", e => { item.time = e.target.value; });
+      card.querySelector(".title").addEventListener("input", e => {
+        item.title = e.target.value;
+        const link = card.querySelector(".photo-link");
+        if(link) link.href = "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(item.title || item.time || "Japan");
+      });
+      card.querySelector(".desc").addEventListener("input", e => { item.desc = e.target.value; });
+      card.querySelector(".del").addEventListener("click", () => { data[i].items.splice(j, 1); render(); });
+      dayEl.appendChild(card);
+    });
+
+    const topAttractions = TOP_ATTRACTIONS[day.city];
+    if(topAttractions && topAttractions.length){
+      const topBox = document.createElement("div");
+      topBox.className = "top-attractions";
+      const cityLabel = day.city[0].toUpperCase() + day.city.slice(1);
+      const items = topAttractions.map(name =>
+        `<li><a target="_blank" rel="noopener" href="https://www.google.com/search?q=${encodeURIComponent(name)}">${name}</a></li>`
+      ).join("");
+      const guideUrl = CITY_GUIDES[day.city];
+      const guideLink = guideUrl
+        ? `<a target="_blank" rel="noopener" href="${guideUrl}" style="display:inline-block;margin-top:8px;font-size:.78rem;">📖 Full ${cityLabel} guide (japan-guide.com) →</a>`
+        : "";
+      topBox.innerHTML = `<h3>Top 3 in ${cityLabel}</h3><ol>${items}</ol>${guideLink}`;
+      dayEl.appendChild(topBox);
+    }
+
+    const addBtn = document.createElement("button");
+    addBtn.className = "add-btn";
+    addBtn.textContent = "+ Add activity";
+    addBtn.onclick = () => { data[i].items.push({id: uid(), time:"", title:"", desc:""}); render(); };
+    dayEl.appendChild(addBtn);
+
+    const attachBox = document.createElement("div");
+    attachBox.className = "notes";
+    attachBox.innerHTML = `
+      <h3>Photos & documents for this day</h3>
+      <div class="attach-grid"></div>
+      <div class="attach-actions">
+        <label class="attach-btn">📷 Add photo<input type="file" accept="image/*" multiple hidden class="photo-input"></label>
+        <label class="attach-btn">📄 Add PDF<input type="file" accept="application/pdf" hidden class="pdf-input"></label>
+      </div>
+      <p class="hint">Photos/PDFs added here stay only in your current browser tab — they won't be visible to others or saved after you close this page.</p>
+    `;
+    attachBox.querySelector(".photo-input").addEventListener("change", e => {
+      if(e.target.files.length) handleAddPhotos(i, Array.from(e.target.files));
+      e.target.value = "";
+    });
+    attachBox.querySelector(".pdf-input").addEventListener("change", e => {
+      if(e.target.files.length) handleAddPdf(i, e.target.files[0]);
+      e.target.value = "";
+    });
+    renderAttachments(day, i, attachBox.querySelector(".attach-grid"));
+    dayEl.appendChild(attachBox);
+
+    const notesBox = document.createElement("div");
+    notesBox.className = "notes";
+    notesBox.innerHTML = `<h3>Notes & questions for this day</h3><textarea placeholder="Reservations, open questions for each other, things to double-check…">${day.notes || ""}</textarea>`;
+    notesBox.querySelector("textarea").addEventListener("input", e => { day.notes = e.target.value; });
+    dayEl.appendChild(notesBox);
+
+    daysEl.appendChild(dayEl);
+  });
+
+  const addTab = document.createElement("div");
+  addTab.className = "tab add-tab";
+  addTab.innerHTML = `<span class="d">+ Add</span><span class="c">day</span>`;
+  addTab.onclick = () => {
+    const lastCity = data.length ? data[data.length-1].city : "osaka";
+    data.push({ id: uid(), date:"New day", city:lastCity, title:"New day", notes:"", attachments:[], items:[
+      {id: uid(), time:"", title:"", desc:""}
+    ]});
+    activeDay = data.length - 1;
+    render();
+  };
+  tabsEl.appendChild(addTab);
+}
+
+document.getElementById("generalNotes").value = generalNotes;
+document.getElementById("generalNotes").addEventListener("input", e => { generalNotes = e.target.value; });
+
+render();
+</script>
 </body>
 </html>
